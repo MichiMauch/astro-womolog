@@ -1,0 +1,34 @@
+---
+	import { getSheetData } from '../lib/sheetService'; // Importiere die Datenabruf-Funktion
+	import CampCard from '../components/CampCard.astro'; // Importiere deine CampCard-Komponente
+	import MainLayout from '../layouts/MainLayout.astro';
+
+	const sheetData = await getSheetData(); // Rufe die Daten von der API ab
+
+	// Extrahiere die notwendigen Felder aus den Sheet-Daten
+	const placesWithLocations = sheetData.map(row => ({
+		place: row[0],  // Titel
+		location: row[1],  // Ort
+		datefrom: row[2],  // Datum von
+		dateto: row[3],  // Datum bis
+		image: row[4],  // Teaserbild
+		latitude: row[5],  // Latitude
+		longitude: row[6],  // Longitude
+		country: row[7],  // Land
+		countrycodeshort: row[8],  // Ländercode kurz
+		countrycodelong: row[9],  // Ländercode lang
+	}));
+---
+
+<MainLayout>
+	<h1>Unsere Wohnmobil-Standorte</h1>
+
+	<section>
+		{placesWithLocations.map(({ place, location, datefrom, dateto, image, latitude, longitude, country,
+		countrycodeshort, countrycodelong }) => (
+		<CampCard place={place} location={location} datefrom={datefrom} dateto={dateto} image={image}
+			latitude={latitude} longitude={longitude} country={country} countrycodeshort={countrycodeshort}
+			countrycodelong={countrycodelong} />
+		))}
+	</section>
+</MainLayout>

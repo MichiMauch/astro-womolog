@@ -1,0 +1,40 @@
+---
+const {
+  place,
+  location,
+  datefrom,
+  dateto,
+  image,
+  latitude,
+  longitude,
+  country,
+  countrycodeshort,
+  countrycodelong,
+} = Astro.props; // Nehme alle Props entgegen
+
+// Baue die vollständige Bild-URL zusammen
+const imageUrl = `https://pub-7b46ce1a4c0f4ff6ad2ed74d56e2128a.r2.dev/${image}.webp`;
+---
+
+<div
+  class="p-4 my-4 border border-gray-300 rounded-lg bg-gray-50"
+  data-country={country}
+>
+  <!-- Füge das Land als Attribut hinzu -->
+  <img
+    src={imageUrl}
+    alt={`Bild von ${place}`}
+    class="block w-[200px] h-[200px] object-cover mb-4"
+    loading="lazy"
+  />
+
+  <h2 class="text-lg font-semibold">{place}, {location}</h2>
+  <!-- Zeige den Ort an -->
+
+  <p class="text-gray-700">
+    Von: {datefrom}, Bis: {dateto},<br />
+    Land: {country} ({countrycodeshort}),<br />
+    Koordinaten: {latitude}, {longitude},<br />
+    Ländercode lang: {countrycodelong}
+  </p>
+</div>
